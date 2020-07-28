@@ -1,87 +1,65 @@
 package GUI;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-
 public class ServidorGUI extends javax.swing.JFrame {
-
-    final int PUERTO = 5000;
-    ServerSocket sc;
-    Socket so;
-    DataOutputStream salida;
-    String mensajeRecibido;
 
     public ServidorGUI() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setTitle("Programa Servidor");
     }
-
-    public void initServer() {
-        BufferedReader entrada;
-        try {
-            sc = new ServerSocket(PUERTO);/* crea socket servidor que escuchara en puerto 5000*/
-            so = new Socket();
-            System.out.println("Esperando una conexión:");
-            so = sc.accept();
-            //Inicia el socket, ahora esta esperando una conexión por parte del cliente
-            System.out.println("Un cliente se ha conectado.");
-//Canales de entrada y salida de datos
-            entrada = new BufferedReader(new InputStreamReader(so.getInputStream()));
-            salida = new DataOutputStream(so.getOutputStream());
-            System.out.println("Confirmando conexion al cliente....");
-            salida.writeUTF("Conexión exitosa...n envia un mensaje :D");
-//Recepcion de mensaje
-            mensajeRecibido = entrada.readLine();
-            System.out.println(mensajeRecibido);
-            salida.writeUTF("Se recibio tu mensaje.n Terminando conexion...");
-            salida.writeUTF("Gracias por conectarte, adios!");
-            System.out.println("Cerrando conexión...");
-            sc.close();//Aqui se cierra la conexión con el cliente
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(485, 545));
+        setPreferredSize(new java.awt.Dimension(485, 545));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jDesktopPane1.setMinimumSize(new java.awt.Dimension(485, 545));
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(485, 545));
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 485, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 545, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
+
+        jMenuBar1.setMinimumSize(new java.awt.Dimension(400, 500));
+
+        jMenu1.setText("Salir");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Iniciar Servidor");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
             }
         });
+        jMenuBar1.add(jMenu2);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(jButton1)
-                .addContainerGap(161, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jButton1)
-                .addContainerGap(140, Short.MAX_VALUE))
-        );
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        initServer();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        ServidorIniciado serv = new ServidorIniciado();
+        serv.setVisible(true);
+        jDesktopPane1.add(serv);
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -116,6 +94,9 @@ public class ServidorGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
